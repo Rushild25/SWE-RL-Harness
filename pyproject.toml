@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "swe-rl-harness"
+version = "0.1.0"
+description = "Reproducible Reinforcement Learning Environments & Deterministic Verification Harness"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Rushil Dhingra", email = "rushild25@gmail.com" }]
+license = { text = "MIT" }
+dependencies = [
+    "pytest>=8.0.0",
+    "docker>=7.0.0",
+    "pydantic>=2.5.0",
+    "rich>=13.7.0",
+    "click>=8.1.7",
+    "GitPython>=3.1.40"
+]

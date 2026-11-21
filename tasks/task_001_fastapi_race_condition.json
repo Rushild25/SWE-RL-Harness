@@ -1,0 +1,25 @@
+{
+  "task_id": "task_001_fastapi_race_condition",
+  "repository": "tiangolo/fastapi",
+  "base_commit": "e81d83f",
+  "language": "python",
+  "problem_statement": "Subtle concurrency race condition when accessing shared streaming response buffer across multiple async workers under high request concurrency.",
+  "environment": {
+    "python_version": "3.11",
+    "docker_image": "python:3.11-slim",
+    "dependencies": [
+      "starlette==0.27.0",
+      "pydantic==2.4.2",
+      "anyio==3.7.1",
+      "pytest==7.4.2"
+    ]
+  },
+  "fail_to_pass_tests": [
+    "tests/test_async_streaming.py::test_concurrent_stream_buffer_integrity"
+  ],
+  "pass_to_pass_tests": [
+    "tests/test_routing.py",
+    "tests/test_dependency_injection.py"
+  ],
+  "reference_solution": "diff --git a/fastapi/responses.py b/fastapi/responses.py\n--- a/fastapi/responses.py\n+++ b/fastapi/responses.py\n@@ -102,6 +102,8 @@ class StreamingResponse(Response):\n+        async with self._lock:\n+            chunk = await self._stream.read()\n"
+}
